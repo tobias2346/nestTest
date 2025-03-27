@@ -8,7 +8,6 @@ export class UsersService {
 
     create(email: string, password: string) {
         this.users.push({ email, password, id: this.users.length })
-
         return `Bienvenido ${email}`
     }
 
