@@ -1,15 +1,19 @@
 import { Module } from '@nestjs/common';
-import { AuthsModule } from './auth/auths.module';
+import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AppService } from './app.service';
+import { AuthsModule } from './auth/auths.module';
 import { StudentsModule } from './students/students.module';
 import { UsersModule } from './users/users.module';
+import { AppService } from './app.service';
 
 @Module({
-  imports: [UsersModule, AuthsModule, StudentsModule,
-    MongooseModule.forRoot('mongodb+srv://admin:12345@cluster0.sdxugon.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'),
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }), // Carga variables de entorno automáticamente
+    MongooseModule.forRoot(process.env.MONGODB_URL), 
+    UsersModule,
+    AuthsModule,
+    StudentsModule,
   ],
-  providers: [AppService]
+  providers: [AppService],
 })
-
-export class AppModule { }
+export class AppModule {}
