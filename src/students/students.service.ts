@@ -13,7 +13,6 @@ export class StudentsService {
   ){}
 
   async create(createStudentDto: CreateStudentDto) {
-
     const createStudent = new this.studentModel(createStudentDto);
     return createStudent.save()
   }

@@ -1,23 +1,29 @@
 import { Injectable } from '@nestjs/common';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Users } from './schema/users.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class UsersService {
-    constructor() { }
 
-    private users = [];
+  constructor(
+    @InjectModel(Users.name) private studentModel: Model<Users>
+  ) { }
 
-    create(email: string, password: string) {
-        this.users.push({ email, password, id: this.users.length })
-        return `Bienvenido ${email}`
-    }
+  findAll() {
+    return `This action returns all users`;
+  }
 
-    getUserById(id: number) {
-        const user = this.users.find(item => item.id === id)
+  findOne(id: number) {
+    return `This action returns a #${id} user`;
+  }
 
-        if (user)
-            return user;
+  update(id: number, updateUserDto: UpdateUserDto) {
+    return `This action updates a #${id} user`;
+  }
 
-        return 'Usuario no econtrado'
-    }
-
+  remove(id: number) {
+    return `This action removes a #${id} user`;
+  }
 }
